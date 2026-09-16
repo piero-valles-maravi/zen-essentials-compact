@@ -52,23 +52,35 @@
 
   /* --- Rejilla: columnas y separación ---
      Solo con la barra lateral expandida, que es cuando los
-     Essentials se muestran como cuadrícula. */
+     Essentials se muestran como cuadrícula.
+
+     Nota: el prefijo ":root" y el descendiente ".zen-essentials-container ..."
+     suben la especificidad para GANARLE a SuperPins, que con "auto-grow"
+     y "grid-count" fuerza flex y anchos en el contenedor de Essentials. */
   @media (-moz-pref("zen.view.sidebar-expanded")) {
-    .zen-essentials-container {
+    :root .zen-essentials-container {
+      /* Forzamos grid (SuperPins auto-grow lo pone en flex estirado). */
+      display: grid !important;
+      /* Columnas FIJAS al tamaño del azulejo (sin 1fr, para que no
+         se estiren y sobre espacio horizontal). */
+      grid-template-columns: repeat(auto-fit, var(--ec-tile)) !important;
+      /* Filas también al tamaño del azulejo → celdas cuadradas. */
+      grid-auto-rows: var(--ec-tile) !important;
       /* gap único = misma separación horizontal y vertical. */
       gap: var(--ec-gap) !important;
-      /* Columnas FIJAS al tamaño del azulejo (sin 1fr, para que no
-         se estiren y sobre espacio horizontal). Caben tantas como
-         entren; el grupo se centra. */
-      grid-template-columns: repeat(auto-fit, var(--ec-tile)) !important;
       justify-content: center !important;
+      width: auto !important;
     }
 
-    /* El azulejo ocupa exactamente el ancho de columna → cuadrado. */
-    .tabbrowser-tab[zen-essential="true"] {
+    /* El azulejo ocupa exactamente la celda → cuadrado.
+       flex:0 0 auto neutraliza el "flex:1 1 auto" de SuperPins. */
+    .zen-essentials-container .tabbrowser-tab[zen-essential="true"] {
+      flex: 0 0 auto !important;
       width: var(--ec-tile) !important;
       min-width: var(--ec-tile) !important;
       max-width: var(--ec-tile) !important;
+      height: var(--ec-tile) !important;
+      min-height: var(--ec-tile) !important;
     }
   }
 }
