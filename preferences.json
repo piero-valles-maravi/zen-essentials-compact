@@ -1,0 +1,26 @@
+[
+  {
+    "property": "mod.essentials-compact.icon-size",
+    "label": "Tamaño del icono (px) — solo el número, ej. 20",
+    "type": "string",
+    "defaultValue": "20"
+  },
+  {
+    "property": "mod.essentials-compact.tile-size",
+    "label": "Tamaño del azulejo / espacio alrededor del icono (px) — ej. 40",
+    "type": "string",
+    "defaultValue": "40"
+  },
+  {
+    "property": "mod.essentials-compact.gap",
+    "label": "Separación entre azulejos (px) — ej. 4",
+    "type": "string",
+    "defaultValue": "4"
+  },
+  {
+    "property": "mod.essentials-compact.radius",
+    "label": "Redondeo de esquinas del azulejo (px) — ej. 10",
+    "type": "string",
+    "defaultValue": "10"
+  }
+]

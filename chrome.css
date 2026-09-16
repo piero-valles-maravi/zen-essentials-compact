@@ -1,0 +1,65 @@
+/* ============================================================
+ * Zen Essentials Compact
+ * Ajusta el tamaño de los iconos de los Essentials y el espacio
+ * a su alrededor (el "azulejo") para una rejilla más compacta.
+ *
+ * Todo se controla desde las preferencias del mod en Sine.
+ * Los valores son numéricos (sin unidad); el CSS les añade px.
+ * Si Sine no inyecta una variable, se usa el valor de reserva.
+ * ============================================================ */
+
+/* Solo aplica con la barra lateral vertical (comportamiento de Zen). */
+@media (-moz-pref("zen.tabs.vertical")) {
+  :root {
+    /* Tamaño del icono dentro de cada Essential. */
+    --ec-icon: calc(var(--mod-essentials-compact-icon-size, 20) * 1px);
+    /* Tamaño del azulejo = espacio alrededor del icono. */
+    --ec-tile: calc(var(--mod-essentials-compact-tile-size, 40) * 1px);
+    /* Separación entre azulejos. */
+    --ec-gap: calc(var(--mod-essentials-compact-gap, 4) * 1px);
+    /* Redondeo de las esquinas del azulejo. */
+    --ec-radius: calc(var(--mod-essentials-compact-radius, 10) * 1px);
+  }
+
+  /* --- Tamaño del icono --- */
+  .tabbrowser-tab[zen-essential="true"] .tab-icon-image,
+  .tabbrowser-tab[zen-essential="true"] .tab-icon-pending,
+  .tabbrowser-tab[zen-essential="true"] .tab-icon-overlay,
+  .tabbrowser-tab[zen-essential="true"] .tab-sharing-icon-overlay {
+    width: var(--ec-icon) !important;
+    height: var(--ec-icon) !important;
+  }
+
+  /* --- Espacio alrededor del icono (tamaño del azulejo) --- */
+  .tabbrowser-tab[zen-essential="true"] {
+    /* Quita el relleno interno extra del botón para que el icono
+       quede centrado sin padding fantasma. */
+    --toolbarbutton-inner-padding: 0 !important;
+    min-height: var(--ec-tile) !important;
+    height: var(--ec-tile) !important;
+  }
+
+  .tabbrowser-tab[zen-essential="true"] .tab-stack .tab-background {
+    min-height: var(--ec-tile) !important;
+    border-radius: var(--ec-radius) !important;
+  }
+
+  /* Centra el icono en el azulejo (por si algún layout lo desplaza). */
+  .tabbrowser-tab[zen-essential="true"] .tab-content {
+    justify-content: center !important;
+    padding-inline: 0 !important;
+  }
+
+  /* --- Rejilla: ancho de columna y separación ---
+     Solo con la barra lateral expandida, que es cuando los
+     Essentials se muestran como cuadrícula. */
+  @media (-moz-pref("zen.view.sidebar-expanded")) {
+    .zen-essentials-container {
+      gap: var(--ec-gap) var(--ec-gap) !important;
+      /* El mínimo de columna = tamaño del azulejo: al reducirlo,
+         caben más columnas por fila y ocupa menos alto en total. */
+      grid-template-columns:
+        repeat(auto-fit, minmax(var(--ec-tile), 1fr)) !important;
+    }
+  }
+}
