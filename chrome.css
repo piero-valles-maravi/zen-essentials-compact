@@ -50,16 +50,25 @@
     padding-inline: 0 !important;
   }
 
-  /* --- Rejilla: ancho de columna y separación ---
+  /* --- Rejilla: columnas y separación ---
      Solo con la barra lateral expandida, que es cuando los
      Essentials se muestran como cuadrícula. */
   @media (-moz-pref("zen.view.sidebar-expanded")) {
     .zen-essentials-container {
-      gap: var(--ec-gap) var(--ec-gap) !important;
-      /* El mínimo de columna = tamaño del azulejo: al reducirlo,
-         caben más columnas por fila y ocupa menos alto en total. */
-      grid-template-columns:
-        repeat(auto-fit, minmax(var(--ec-tile), 1fr)) !important;
+      /* gap único = misma separación horizontal y vertical. */
+      gap: var(--ec-gap) !important;
+      /* Columnas FIJAS al tamaño del azulejo (sin 1fr, para que no
+         se estiren y sobre espacio horizontal). Caben tantas como
+         entren; el grupo se centra. */
+      grid-template-columns: repeat(auto-fit, var(--ec-tile)) !important;
+      justify-content: center !important;
+    }
+
+    /* El azulejo ocupa exactamente el ancho de columna → cuadrado. */
+    .tabbrowser-tab[zen-essential="true"] {
+      width: var(--ec-tile) !important;
+      min-width: var(--ec-tile) !important;
+      max-width: var(--ec-tile) !important;
     }
   }
 }
