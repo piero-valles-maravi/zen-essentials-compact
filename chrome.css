@@ -6,16 +6,21 @@
  * Todo se controla desde las preferencias del mod en Sine.
  * Los valores son numéricos (sin unidad); el CSS les añade px.
  * Si Sine no inyecta una variable, se usa el valor de reserva.
+ *
+ * Nota de especificidad: el CSS nativo de Zen usa
+ *   .zen-essentials-container { grid-template-columns: repeat(auto-fit, minmax(max(23.7%, ...), 1fr)) }
+ *   .tabbrowser-tab[zen-essential="true"] { width: 100% !important }
+ * Por eso aquí subimos la especificidad (":root", descendientes)
+ * para ganarle y fijar azulejos cuadrados con separación pareja.
  * ============================================================ */
 
-/* Solo aplica con la barra lateral vertical (comportamiento de Zen). */
 @media (-moz-pref("zen.tabs.vertical")) {
   :root {
     /* Tamaño del icono dentro de cada Essential. */
     --ec-icon: calc(var(--mod-essentials-compact-icon-size, 20) * 1px);
     /* Tamaño del azulejo = espacio alrededor del icono. */
     --ec-tile: calc(var(--mod-essentials-compact-tile-size, 40) * 1px);
-    /* Separación entre azulejos. */
+    /* Separación (igual en horizontal y vertical). */
     --ec-gap: calc(var(--mod-essentials-compact-gap, 4) * 1px);
     /* Redondeo de las esquinas del azulejo. */
     --ec-radius: calc(var(--mod-essentials-compact-radius, 10) * 1px);
@@ -30,57 +35,42 @@
     height: var(--ec-icon) !important;
   }
 
-  /* --- Espacio alrededor del icono (tamaño del azulejo) --- */
-  .tabbrowser-tab[zen-essential="true"] {
-    /* Quita el relleno interno extra del botón para que el icono
-       quede centrado sin padding fantasma. */
-    --toolbarbutton-inner-padding: 0 !important;
-    min-height: var(--ec-tile) !important;
-    height: var(--ec-tile) !important;
+  /* --- Rejilla del contenedor ---
+     Columnas FIJAS al tamaño del azulejo (sin 1fr → no se estiran,
+     así la separación horizontal = vertical). Filas también fijas
+     → celdas cuadradas. El grupo se centra. */
+  :root .zen-essentials-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, var(--ec-tile)) !important;
+    grid-auto-rows: var(--ec-tile) !important;
+    gap: var(--ec-gap) !important;
+    justify-content: center !important;
   }
 
-  .tabbrowser-tab[zen-essential="true"] .tab-stack .tab-background {
+  /* --- Cada Essential = azulejo cuadrado --- */
+  .zen-essentials-container .tabbrowser-tab[zen-essential="true"] {
+    --toolbarbutton-inner-padding: 0 !important;
+    flex: 0 0 auto !important;
+    width: var(--ec-tile) !important;
+    min-width: var(--ec-tile) !important;
+    max-width: var(--ec-tile) !important;
+    height: var(--ec-tile) !important;
+    min-height: var(--ec-tile) !important;
+  }
+
+  /* Fondo visible del azulejo: alto y redondeo. */
+  .zen-essentials-container
+    .tabbrowser-tab[zen-essential="true"]
+    .tab-background {
     min-height: var(--ec-tile) !important;
     border-radius: var(--ec-radius) !important;
   }
 
-  /* Centra el icono en el azulejo (por si algún layout lo desplaza). */
-  .tabbrowser-tab[zen-essential="true"] .tab-content {
+  /* Icono centrado dentro del azulejo. */
+  .zen-essentials-container
+    .tabbrowser-tab[zen-essential="true"]
+    .tab-content {
     justify-content: center !important;
     padding-inline: 0 !important;
-  }
-
-  /* --- Rejilla: columnas y separación ---
-     Solo con la barra lateral expandida, que es cuando los
-     Essentials se muestran como cuadrícula.
-
-     Nota: el prefijo ":root" y el descendiente ".zen-essentials-container ..."
-     suben la especificidad para GANARLE a SuperPins, que con "auto-grow"
-     y "grid-count" fuerza flex y anchos en el contenedor de Essentials. */
-  @media (-moz-pref("zen.view.sidebar-expanded")) {
-    :root .zen-essentials-container {
-      /* Forzamos grid (SuperPins auto-grow lo pone en flex estirado). */
-      display: grid !important;
-      /* Columnas FIJAS al tamaño del azulejo (sin 1fr, para que no
-         se estiren y sobre espacio horizontal). */
-      grid-template-columns: repeat(auto-fit, var(--ec-tile)) !important;
-      /* Filas también al tamaño del azulejo → celdas cuadradas. */
-      grid-auto-rows: var(--ec-tile) !important;
-      /* gap único = misma separación horizontal y vertical. */
-      gap: var(--ec-gap) !important;
-      justify-content: center !important;
-      width: auto !important;
-    }
-
-    /* El azulejo ocupa exactamente la celda → cuadrado.
-       flex:0 0 auto neutraliza el "flex:1 1 auto" de SuperPins. */
-    .zen-essentials-container .tabbrowser-tab[zen-essential="true"] {
-      flex: 0 0 auto !important;
-      width: var(--ec-tile) !important;
-      min-width: var(--ec-tile) !important;
-      max-width: var(--ec-tile) !important;
-      height: var(--ec-tile) !important;
-      min-height: var(--ec-tile) !important;
-    }
   }
 }

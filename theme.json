@@ -3,7 +3,7 @@
   "name": "Zen Essentials Compact",
   "description": "Ajusta el tamaño de los iconos de los Essentials y el espacio a su alrededor, para una rejilla más compacta.",
   "author": "pvalles",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/piero-valles-maravi/zen-essentials-compact",
   "tags": ["essentials", "tabs", "compact", "icons"],
   "style": {
