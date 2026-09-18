@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380" role="img" aria-label="What each control adjusts">
+  <defs>
+    <style>
+      .h    { font-family:'Segoe UI',Ubuntu,system-ui,sans-serif; fill:#0F172A; font-weight:700; }
+      .lab  { font-family:'Segoe UI',Ubuntu,system-ui,sans-serif; fill:#0F766E; font-weight:600; }
+      .desc { font-family:'Segoe UI',Ubuntu,system-ui,sans-serif; fill:#475569; }
+      .dim  { stroke:#0F766E; stroke-width:1.5; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="380" rx="20" fill="#F0FDFA"/>
+  <text class="h" x="40" y="52" font-size="24">The mod’s 5 controls</text>
+
+  <!-- two example tiles -->
+  <g transform="translate(90,110)">
+    <!-- tile 1 -->
+    <rect x="0" y="0" width="150" height="150" rx="22" fill="#ffffff" stroke="#99F6E4" stroke-width="2"/>
+    <circle cx="75" cy="75" r="34" fill="#14B8A6"/>
+    <!-- tile 2 -->
+    <rect x="210" y="0" width="150" height="150" rx="22" fill="#ffffff" stroke="#99F6E4" stroke-width="2"/>
+    <circle cx="285" cy="75" r="34" fill="#14B8A6"/>
+
+    <!-- icon-size dimension (on icon of tile 1) -->
+    <line class="dim" x1="41" y1="75" x2="109" y2="75" marker-start="url(#a)" marker-end="url(#a)"/>
+    <!-- tile-size dimension (bottom of tile 1) -->
+    <line class="dim" x1="0" y1="172" x2="150" y2="172"/>
+    <line class="dim" x1="0" y1="166" x2="0" y2="178"/>
+    <line class="dim" x1="150" y1="166" x2="150" y2="178"/>
+    <!-- gap dimension (between tiles) -->
+    <line class="dim" x1="150" y1="40" x2="210" y2="40"/>
+    <line class="dim" x1="150" y1="34" x2="150" y2="46"/>
+    <line class="dim" x1="210" y1="34" x2="210" y2="46"/>
+    <!-- radius pointer (corner of tile 2) -->
+    <path d="M360 22 A22 22 0 0 0 338 0" fill="none" stroke="#F59E0B" stroke-width="3"/>
+  </g>
+
+  <!-- labels -->
+  <g font-size="15">
+    <circle cx="470" cy="120" r="6" fill="#14B8A6"/>
+    <text class="lab" x="486" y="125">Icon size</text>
+    <text class="desc" x="486" y="146" font-size="13">the favicon inside the tile</text>
+
+    <rect x="464" y="168" width="12" height="12" rx="3" fill="none" stroke="#0F766E" stroke-width="2"/>
+    <text class="lab" x="486" y="179">Min and max width</text>
+    <text class="desc" x="486" y="200" font-size="13">the range the square tile grows within</text>
+
+    <line x1="464" y1="228" x2="476" y2="228" class="dim"/>
+    <text class="lab" x="486" y="233">Gap</text>
+    <text class="desc" x="486" y="254" font-size="13">the space between tiles</text>
+
+    <path d="M464 286 A10 10 0 0 1 474 276" fill="none" stroke="#F59E0B" stroke-width="3"/>
+    <text class="lab" x="486" y="287">Corner radius</text>
+    <text class="desc" x="486" y="308" font-size="13">how round the corners are</text>
+  </g>
+
+  <text class="desc" x="90" y="320" font-size="14">Tiles are square, fill the sidebar width and reflow when you resize it.</text>
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M4 1 L1 4 L4 7" fill="none" stroke="#0F766E" stroke-width="1.5"/>
+    </marker>
+  </defs>
+</svg>

@@ -15,7 +15,7 @@
 
   <!-- BEFORE: spread out big tiles -->
   <g transform="translate(70,84)">
-    <text class="lbl" x="70" y="-14" font-size="15" text-anchor="middle" opacity="0.85">Antes</text>
+    <text class="lbl" x="70" y="-14" font-size="15" text-anchor="middle" opacity="0.85">Before</text>
     <g fill="#ffffff" fill-opacity="0.14">
       <rect x="0"  y="0"  width="60" height="60" rx="14"/>
       <rect x="80" y="0"  width="60" height="60" rx="14"/>
@@ -38,7 +38,7 @@
 
   <!-- AFTER: compact tiles, more per row -->
   <g transform="translate(330,84)">
-    <text class="lbl" x="80" y="-14" font-size="15" text-anchor="middle" opacity="0.95">Después</text>
+    <text class="lbl" x="80" y="-14" font-size="15" text-anchor="middle" opacity="0.95">After</text>
     <g fill="#ffffff" fill-opacity="0.20">
       <rect x="0"   y="0"  width="34" height="34" rx="9"/>
       <rect x="42"  y="0"  width="34" height="34" rx="9"/>
@@ -59,14 +59,14 @@
 
   <!-- title block -->
   <text class="t"   x="560" y="150" font-size="48" font-weight="700">Zen Essentials Compact</text>
-  <text class="sub" x="562" y="192" font-size="21">Tamaño de iconos y espaciado ajustables</text>
-  <text class="sub" x="562" y="220" font-size="21">para una rejilla de Essentials más compacta.</text>
+  <text class="sub" x="562" y="192" font-size="21">Square Essentials tiles that fill the sidebar width</text>
+  <text class="sub" x="562" y="220" font-size="21">and reflow as you resize it.</text>
   <g transform="translate(562,244)" font-size="14">
     <rect width="118" height="30" rx="15" fill="#ffffff" fill-opacity="0.16"/>
     <text class="lbl" x="59" y="20" text-anchor="middle">Zen Browser</text>
     <rect x="130" width="70" height="30" rx="15" fill="#ffffff" fill-opacity="0.16"/>
     <text class="lbl" x="165" y="20" text-anchor="middle">Sine</text>
-    <rect x="210" width="128" height="30" rx="15" fill="#ffffff" fill-opacity="0.16"/>
-    <text class="lbl" x="274" y="20" text-anchor="middle">solo CSS · v1.0.0</text>
+    <rect x="210" width="96" height="30" rx="15" fill="#ffffff" fill-opacity="0.16"/>
+    <text class="lbl" x="258" y="20" text-anchor="middle">CSS only</text>
   </g>
 </svg>
