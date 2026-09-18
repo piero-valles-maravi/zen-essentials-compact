@@ -1,9 +1,9 @@
 {
   "id": "zen-essentials-compact",
   "name": "Zen Essentials Compact",
-  "description": "Ajusta el tamaño de los iconos de los Essentials y el espacio a su alrededor, para una rejilla más compacta.",
+  "description": "Rejilla compacta de Essentials: azulejos cuadrados que ocupan todo el ancho de la barra lateral y se reacomodan al redimensionarla.",
   "author": "pvalles",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "homepage": "https://github.com/piero-valles-maravi/zen-essentials-compact",
   "tags": ["essentials", "tabs", "compact", "icons"],
   "style": {

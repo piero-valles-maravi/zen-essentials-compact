@@ -9,7 +9,7 @@
   </defs>
 
   <rect x="0" y="0" width="900" height="380" rx="20" fill="#F0FDFA"/>
-  <text class="h" x="40" y="52" font-size="24">Los 4 controles del mod</text>
+  <text class="h" x="40" y="52" font-size="24">Los 5 controles del mod</text>
 
   <!-- two example tiles -->
   <g transform="translate(90,110)">
@@ -41,8 +41,8 @@
     <text class="desc" x="486" y="146" font-size="13">el favicon dentro del azulejo</text>
 
     <rect x="464" y="168" width="12" height="12" rx="3" fill="none" stroke="#0F766E" stroke-width="2"/>
-    <text class="lab" x="486" y="179">Tamaño del azulejo</text>
-    <text class="desc" x="486" y="200" font-size="13">el recuadro = espacio alrededor del icono</text>
+    <text class="lab" x="486" y="179">Ancho mínimo y máximo</text>
+    <text class="desc" x="486" y="200" font-size="13">límites entre los que crece el azulejo cuadrado</text>
 
     <line x1="464" y1="228" x2="476" y2="228" class="dim"/>
     <text class="lab" x="486" y="233">Separación</text>
@@ -53,7 +53,7 @@
     <text class="desc" x="486" y="308" font-size="13">el radio de las esquinas</text>
   </g>
 
-  <text class="desc" x="90" y="320" font-size="14">Reduce el azulejo y la separación → la rejilla ocupa menos y caben más iconos por fila.</text>
+  <text class="desc" x="90" y="320" font-size="14">Los azulejos son cuadrados, llenan el ancho de la barra lateral y se reacomodan al redimensionarla.</text>
 
   <defs>
     <marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">

@@ -4,9 +4,9 @@
 
 # Zen Essentials Compact
 
-**Ajusta el tamaño de los iconos de los Essentials de Zen y el espacio a su alrededor, para una rejilla más compacta.**
+**Rejilla compacta de Essentials: azulejos cuadrados que ocupan todo el ancho de la barra lateral y se reacomodan al redimensionarla.**
 
-![version](https://img.shields.io/badge/versión-1.0.0-0F766E)
+![version](https://img.shields.io/badge/versión-1.1.0-0F766E)
 ![Zen Browser](https://img.shields.io/badge/Zen-Browser-1E3A8A)
 ![Sine](https://img.shields.io/badge/Sine-mod-14B8A6)
 ![CSS](https://img.shields.io/badge/solo-CSS-38BDF8)
@@ -18,24 +18,33 @@
 
 ## ✨ ¿Qué hace?
 
-Si vas agregando muchos Essentials, la cuadrícula empieza a ocupar demasiado alto porque cada icono lleva bastante espacio a su alrededor. Este mod te deja **encoger ese espacio** y **ajustar el tamaño del icono**, así entran más iconos ocupando menos.
+Si vas agregando muchos Essentials, la cuadrícula empieza a ocupar demasiado alto porque cada icono lleva bastante espacio a su alrededor. Este mod la vuelve **compacta y cuadrada**:
+
+- Cada Essential es un **cuadrado real** (mismo ancho que alto), no un rectángulo alargado.
+- Los azulejos **llenan todo el ancho** de la barra lateral.
+- Al **ensanchar o angostar la barra lateral**, la rejilla **añade o quita columnas** sola y los azulejos se redimensionan con ella.
+- Puedes **encoger el azulejo** y **ajustar el tamaño del icono**, así entran más iconos ocupando menos alto.
 
 Es un mod **solo-CSS** (sin JavaScript) y todo se controla desde las preferencias del mod en **Sine** — no necesitas editar código.
 
-![Los 4 controles](assets/controls.svg)
+![Los 5 controles](assets/controls.svg)
 
 ## 🎛️ Controles
 
 | Preferencia | Por defecto | Qué hace |
 |---|---|---|
 | **Tamaño del icono** | `20` | Tamaño del favicon dentro de cada Essential (px). |
-| **Tamaño del azulejo** | `40` | Tamaño del recuadro = el espacio alrededor del icono (px). Más pequeño → más compacto y caben más columnas por fila. |
-| **Separación** | `4` | Espacio (gap) entre los recuadros (px). |
+| **Ancho mínimo del azulejo** | `40` | Lo más angosto que puede ser un azulejo (px). Es lo que decide **cuántas columnas caben** por fila: más pequeño → más columnas. |
+| **Ancho máximo del azulejo** | `96` | Tope de crecimiento (px). Evita azulejos enormes cuando tienes pocos Essentials y la barra lateral muy ancha. |
+| **Separación** | `4` | Espacio (gap) entre los azulejos (px). Es idéntico en horizontal y en vertical. |
 | **Redondeo** | `10` | Radio de las esquinas del azulejo (px). |
 
 > Los valores son solo números (sin `px`); el mod les añade la unidad automáticamente.
+> El alto no se configura: sale siempre del ancho, porque el azulejo es cuadrado.
 
-**Preset bien compacto:** icono `20`, azulejo `36`, separación `3`, redondeo `9`.
+**Preset bien compacto:** icono `18`, ancho mínimo `34`, ancho máximo `64`, separación `3`, redondeo `9`.
+
+> ⚠️ Deja el **tamaño del icono por debajo del ancho mínimo**; si lo superas, el icono se recorta contra el borde del azulejo.
 
 ---
 
@@ -64,14 +73,15 @@ Es un mod **solo-CSS** (sin JavaScript) y todo se controla desde las preferencia
 
 ## 🖱️ Uso
 
-Abre la configuración del mod en Sine y ajusta los 4 valores a tu gusto. Los cambios se aplican al recargar los estilos o al reiniciar Zen.
+Abre la configuración del mod en Sine y ajusta los 5 valores a tu gusto. Los cambios se aplican al recargar los estilos o al reiniciar Zen.
 
 ---
 
 ## 📝 Notas y compatibilidad
 
 - Solo afecta a los **Essentials** (no a las pestañas fijadas normales ni a las comunes).
-- La rejilla se ajusta con la barra lateral **expandida**, que es cuando los Essentials se ven en cuadrícula.
+- Con la barra lateral **expandida** los Essentials se ven en cuadrícula. Con la barra **colapsada**, Zen los pone en una sola columna (comportamiento propio de Zen) y el mod los mantiene cuadrados.
+- El mod neutraliza tres medidas nativas de Zen que deformaban el azulejo (`--tab-overflow-clip-margin`, `--tab-margin-block` y `--tab-min-height`) y sustituye el alto fijo por `aspect-ratio`, de ahí que el cuadrado se mantenga a cualquier ancho.
 - **¿Usas también SuperPins?** Ese mod también puede modificar el ancho/gap de los Essentials. Si notas que algo se pisa, desactiva en SuperPins las opciones de *Essentials width / gap / grid*, o ajusta el espaciado solo desde uno de los dos mods.
 
 ---

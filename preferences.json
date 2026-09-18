@@ -6,10 +6,16 @@
     "defaultValue": "20"
   },
   {
-    "property": "mod.essentials-compact.tile-size",
-    "label": "Tamaño del azulejo / espacio alrededor del icono (px) — ej. 40",
+    "property": "mod.essentials-compact.tile-min",
+    "label": "Ancho mínimo del azulejo (px) — decide cuántos caben por fila, ej. 40",
     "type": "string",
     "defaultValue": "40"
+  },
+  {
+    "property": "mod.essentials-compact.tile-max",
+    "label": "Ancho máximo del azulejo (px) — tope al ensanchar la barra, ej. 96",
+    "type": "string",
+    "defaultValue": "96"
   },
   {
     "property": "mod.essentials-compact.gap",

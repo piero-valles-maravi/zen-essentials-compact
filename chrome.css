@@ -1,76 +1,124 @@
 /* ============================================================
  * Zen Essentials Compact
- * Ajusta el tamaño de los iconos de los Essentials y el espacio
- * a su alrededor (el "azulejo") para una rejilla más compacta.
+ * Convierte los Essentials en una rejilla de azulejos CUADRADOS
+ * que ocupa todo el ancho de la barra lateral y reacomoda las
+ * columnas de forma dinámica al cambiar ese ancho.
  *
  * Todo se controla desde las preferencias del mod en Sine.
  * Los valores son numéricos (sin unidad); el CSS les añade px.
  * Si Sine no inyecta una variable, se usa el valor de reserva.
  *
- * Nota de especificidad: el CSS nativo de Zen usa
- *   .zen-essentials-container { grid-template-columns: repeat(auto-fit, minmax(max(23.7%, ...), 1fr)) }
- *   .tabbrowser-tab[zen-essential="true"] { width: 100% !important }
- * Por eso aquí subimos la especificidad (":root", descendientes)
- * para ganarle y fijar azulejos cuadrados con separación pareja.
+ * Por qué hacen falta tantos overrides: el CSS nativo de Zen
+ * deforma el azulejo por tres lados distintos —
+ *   .tabbrowser-tab  { padding: 0 var(--tab-overflow-clip-margin) }  → recorta el ANCHO
+ *   .tab-background  { margin-block: var(--tab-margin-block) }       → recorta el ALTO
+ *   .tab-background  { min-height: var(--tab-min-height) }           → fuerza 46px de ALTO
+ * Por eso el azulejo salía como rectángulo vertical. Aquí se
+ * neutralizan esas tres medidas (redefiniendo las variables en
+ * el contenedor, sin pelear con !important) y el cuadrado se
+ * consigue con aspect-ratio en lugar de con un alto fijo.
  * ============================================================ */
 
 @media (-moz-pref("zen.tabs.vertical")) {
   :root {
-    /* Tamaño del icono dentro de cada Essential. */
-    --ec-icon: calc(var(--mod-essentials-compact-icon-size, 20) * 1px);
-    /* Tamaño del azulejo = espacio alrededor del icono. */
-    --ec-tile: calc(var(--mod-essentials-compact-tile-size, 40) * 1px);
+    /* Ancho mínimo del azulejo: decide cuántas columnas caben. */
+    --ec-tile-min: calc(var(--mod-essentials-compact-tile-min, 40) * 1px);
+    /* Ancho máximo del azulejo: evita azulejos gigantes con pocos Essentials. */
+    --ec-tile-max: calc(var(--mod-essentials-compact-tile-max, 96) * 1px);
     /* Separación (igual en horizontal y vertical). */
     --ec-gap: calc(var(--mod-essentials-compact-gap, 4) * 1px);
     /* Redondeo de las esquinas del azulejo. */
     --ec-radius: calc(var(--mod-essentials-compact-radius, 10) * 1px);
-  }
-
-  /* --- Tamaño del icono --- */
-  .tabbrowser-tab[zen-essential="true"] .tab-icon-image,
-  .tabbrowser-tab[zen-essential="true"] .tab-icon-pending,
-  .tabbrowser-tab[zen-essential="true"] .tab-icon-overlay,
-  .tabbrowser-tab[zen-essential="true"] .tab-sharing-icon-overlay {
-    width: var(--ec-icon) !important;
-    height: var(--ec-icon) !important;
+    /* Tamaño del icono dentro del azulejo. */
+    --ec-icon: calc(var(--mod-essentials-compact-icon-size, 20) * 1px);
   }
 
   /* --- Rejilla del contenedor ---
-     Columnas FIJAS al tamaño del azulejo (sin 1fr → no se estiran,
-     así la separación horizontal = vertical). Filas también fijas
-     → celdas cuadradas. El grupo se centra. */
-  :root .zen-essentials-container {
+     Columnas elásticas (1fr) con un mínimo: ocupan TODO el ancho
+     disponible y auto-fit añade o quita columnas al redimensionar
+     la barra lateral. El min() evita desbordar si la barra llega a
+     ser más estrecha que el azulejo mínimo.
+     La clase extra sube la especificidad para ganarle también a las
+     variantes [data-hack-type] que Zen aplica según cuántos
+     Essentials tengas (5, 6, 9, pares...). */
+  :root .zen-essentials-container.zen-workspace-tabs-section {
+    /* Neutraliza las medidas nativas que deformaban el azulejo. */
+    --tab-min-height: 0;
+    --tab-margin-block: 0;
+    --tab-overflow-clip-margin: 0;
+    --tab-inline-padding: 0;
+    --tab-inner-inline-margin: 0;
+
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, var(--ec-tile)) !important;
-    grid-auto-rows: var(--ec-tile) !important;
+    grid-template-columns:
+      repeat(auto-fit, minmax(min(var(--ec-tile-min), 100%), 1fr)) !important;
+    grid-auto-rows: auto !important;
     gap: var(--ec-gap) !important;
-    justify-content: center !important;
+    /* Sin stretch vertical: el alto lo manda el aspect-ratio del azulejo. */
+    align-items: start !important;
   }
 
-  /* --- Cada Essential = azulejo cuadrado --- */
+  /* --- Cada Essential = azulejo cuadrado ---
+     El ancho lo da la columna (1fr) y el alto sale del aspect-ratio,
+     nunca del contenido: por eso min-height y padding van a 0. */
   .zen-essentials-container .tabbrowser-tab[zen-essential="true"] {
-    --toolbarbutton-inner-padding: 0 !important;
-    flex: 0 0 auto !important;
-    width: var(--ec-tile) !important;
-    min-width: var(--ec-tile) !important;
-    max-width: var(--ec-tile) !important;
-    height: var(--ec-tile) !important;
-    min-height: var(--ec-tile) !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: var(--ec-tile-max) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+    justify-self: center !important;
+    align-self: start !important;
   }
 
-  /* Fondo visible del azulejo: alto y redondeo. */
+  /* La pila interna ocupa el azulejo completo. */
+  .zen-essentials-container
+    .tabbrowser-tab[zen-essential="true"]
+    > .tab-stack {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+
+  /* Fondo visible del azulejo: sin márgenes propios (así la
+     separación real es solo el gap) y con el redondeo elegido. */
   .zen-essentials-container
     .tabbrowser-tab[zen-essential="true"]
     .tab-background {
-    min-height: var(--ec-tile) !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
     border-radius: var(--ec-radius) !important;
   }
 
-  /* Icono centrado dentro del azulejo. */
+  /* Icono centrado en los dos ejes dentro del azulejo. */
   .zen-essentials-container
     .tabbrowser-tab[zen-essential="true"]
     .tab-content {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    align-items: center !important;
     justify-content: center !important;
-    padding-inline: 0 !important;
+  }
+
+  /* --- Tamaño del icono --- */
+  .zen-essentials-container
+    .tabbrowser-tab[zen-essential="true"]
+    :is(
+      .tab-icon-image,
+      .tab-icon-pending,
+      .tab-icon-overlay,
+      .tab-sharing-icon-overlay,
+      .tab-throbber
+    ) {
+    width: var(--ec-icon) !important;
+    height: var(--ec-icon) !important;
+    margin: 0 !important;
   }
 }
