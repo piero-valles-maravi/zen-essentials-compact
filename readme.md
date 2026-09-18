@@ -50,30 +50,46 @@ Es un mod **solo-CSS** (sin JavaScript) y todo se controla desde las preferencia
 
 ## 📋 Requisitos
 
-- **[Zen Browser](https://zen-browser.app/)** con la barra lateral vertical (predeterminada).
-- **Sine** (gestor de mods de Zen) instalado.
+- **[Zen Browser](https://zen-browser.app/)** con la barra lateral vertical (la predeterminada).
+- **[Sine](https://github.com/CosmoCreeper/Sine)**, el gestor de mods de Zen — necesario para el panel de preferencias.
 
 ## 🚀 Instalación
 
-### Con Sine desde GitHub (recomendada)
-1. Abre el gestor de mods de **Sine** en Zen.
-2. Instala un mod desde un repositorio de GitHub con el identificador:
+### Con Sine (recomendada)
+
+1. En Zen abre **Ajustes → Sine Mods**.
+2. En *Marketplace*, bajo **“or, add your own locally from a GitHub repo”**, pega este identificador en el campo de texto:
    ```
    piero-valles-maravi/zen-essentials-compact
    ```
-3. Reinicia Zen si te lo pide.
+3. Pulsa **Install**. El mod aparece en *Installed Mods* con sus 5 preferencias.
 
-### Manual
-1. Descarga (**Code → Download ZIP**) o clona el repositorio.
-2. Copia la carpeta en `<perfil de Zen>/chrome/sine-mods/zen-essentials-compact/`.
-   > 💡 Encuentra tu perfil en `about:profiles` (*Root Directory*).
-3. Reinicia Zen o recarga los mods desde Sine.
+> También funciona pegando la URL completa (`https://github.com/piero-valles-maravi/zen-essentials-compact`).
+
+### Sin Sine — `userChrome.css` (avanzado)
+
+Funciona, pero **sin panel de preferencias**: los valores quedan fijos en los que trae el CSS.
+
+1. En `about:config`, pon `toolkit.legacyUserProfileCustomizations.stylesheets` en `true`.
+2. Copia el contenido de [`chrome.css`](chrome.css) al final de `<perfil de Zen>/chrome/userChrome.css` (créalo si no existe).
+   > 💡 Encuentra tu perfil en `about:profiles` → *Root Directory*.
+3. Reinicia Zen. Para cambiar tamaños, edita a mano los números del bloque `:root` (`--ec-tile-min`, `--ec-icon`, etc.).
+
+> ⚠️ **No sirve** copiar la carpeta dentro de `chrome/sine-mods/`: Sine solo carga los mods registrados en su `mods.json`, así que una carpeta suelta ahí se ignora.
+
+## 🔄 Actualización
+
+Sine detecta versiones nuevas por la **fecha del último cambio del repositorio**, no por el número de versión.
+
+- Con **Auto-Update** activado se actualiza solo.
+- Si no, pulsa **Check for Updates** en *Installed Mods*.
+- Si cambiaron las preferencias (como al pasar de 1.0.x a 1.1.0), **reinstala** el mod para que Sine registre las nuevas.
 
 ---
 
 ## 🖱️ Uso
 
-Abre la configuración del mod en Sine y ajusta los 5 valores a tu gusto. Los cambios se aplican al recargar los estilos o al reiniciar Zen.
+Abre la configuración del mod en Sine y ajusta los 5 valores a tu gusto. Los cambios se aplican al instante; si no, reinicia Zen.
 
 ---
 
